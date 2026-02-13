@@ -1,0 +1,7 @@
+# Auto-configuration
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+edu.m4z.secrets.autoconfigure.SecretsAutoConfiguration
+
+# Environment post-processor (for early PropertySource registration)
+org.springframework.boot.env.EnvironmentPostProcessor=\
+edu.m4z.secrets.autoconfigure.SecretEnvironmentPostProcessor

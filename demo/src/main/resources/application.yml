@@ -1,0 +1,87 @@
+spring:
+  application:
+    name: secret-manager-demo
+  output:
+    ansi:
+      enabled: ALWAYS
+  
+  # DataSource configuration using secret:// placeholders
+  datasource:
+    url: ${secret://database/prod/url}
+    username: ${secret://database/prod/username}
+    password: ${secret://database/prod/password}
+    driver-class-name: org.h2.Driver
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 5
+  
+  # JPA configuration
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+# Secret Manager configuration
+secrets:
+  enabled: true
+
+  # Encryption configuration
+  encryption:
+    # Base64-encoded master key (leave empty to auto-generate for demo)
+    key: ${MASTER_ENCRYPTION_KEY:}
+  
+  # Cache configuration
+  cache:
+    type: memory  # 'memory' or 'redis'
+    # Default cache TTL: 1 hour
+    default-ttl: 3600
+  
+  # Rotation detection
+  rotation-detection:
+    enabled: true
+    check-interval: 30000
+
+  provider: mock-vault  # Use 'conjur-vault' for real CyberArk Conjur
+  mock-vault:
+    entry-set:
+      - key: "database/prod/username"
+        value: "admin"
+      - key: "database/prod/password"
+        value: "initial-password-123"
+      - key: "database/prod/url"
+        value: "jdbc:h2:mem:testdb"
+      - key: "api/external/key"
+        value: "demo-api-key-xyz"
+      - key: "api/external/secret"
+        value: "demo-api-secret-abc"
+      - key: "app/jwt/secret"
+        value: "super-secret-jwt-key"
+      - key: "app/encryption/key"
+        value: "encryption-key-456"
+      - key: "app/feature/flag"
+        value: "true"
+
+  # CyberArk Conjur configuration (when provider=conjur)
+  conjur-vault:
+    url: ${CONJUR_URL:https://conjur.example.com}
+    account: ${CONJUR_ACCOUNT:prod}
+    authn-login: ${CONJUR_AUTHN_LOGIN:host/app-server-01}
+    api-key: ${CONJUR_API_KEY:}
+    ssl-verify: true
+    connection-timeout: 5000
+    read-timeout: 10000
+
+# Server configuration
+server:
+  port: 8080
+
+# Logging
+logging:
+  level:
+    root: INFO
+    edu.m4z.secrets: DEBUG
+  pattern:
+    console: '[%highlight(%-5p)] %msg%n'
