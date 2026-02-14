@@ -1,4 +1,4 @@
-# 🔐 Secret Manager
+# 🔐 Secret Manager API
 
 - **Stop hardcoding secrets.**
 
@@ -38,15 +38,15 @@ Every enterprise team building on Spring Boot faces the same pain:
 
 ---
 
-## Before / After
+## Use cases (Before / After)
 
 ### Accessing secrets
 
 #### Before 
 
-* Vault-specific SDK
-* No caching
-* No rotation
+1. Vault-specific SDK
+2. No caching 
+3. No rotation
 
 ```java
 @Service
@@ -92,9 +92,9 @@ public class PaymentService {
 
 #### After
 
-* Vault-agnostic. 
-* Encrypted cache. 
-* Rotation-ready:
+1. Vault-agnostic. 
+2. Encrypted cache. 
+3. Rotation-ready.
 
 ```java
 @Service
@@ -110,9 +110,12 @@ public class PaymentService {
 
 ---
 
-### Configuring datasources
+### Configuring Data Sources
 
-❌ **Before** — secrets hardcoded or fetched manually in a `@Configuration` class:
+#### Before
+
+1. Secrets hardcoded 
+2. Or fetched manually in a `@Configuration` class
 
 ```java
 @Configuration
@@ -133,7 +136,10 @@ public class DataSourceConfig {
 }
 ```
 
-✅ **After** — pure YAML, zero Java config:
+#### After
+
+1. Pure YAML
+2. Zero Java config:
 
 ```yaml
 spring:
@@ -147,7 +153,11 @@ spring:
 
 ### Handling rotation
 
-❌ **Before** — custom scheduled task, manual cache invalidation, fragile wiring:
+#### Before
+
+1. Custom scheduled task
+2. Manual cache invalidation 
+3. Fragile wiring:
 
 ```java
 @Component
@@ -180,7 +190,10 @@ public class SecretRotationPoller {
 }
 ```
 
-✅ **After** — declarative, event-driven, decoupled:
+#### After
+1. Declarative
+2. Event-driven
+3. Decoupled
 
 ```java
 @Component
@@ -199,13 +212,14 @@ public class RotationHandler {
 }
 ```
 
-Rotation detection, hash comparison, cache updates — all handled by the library.
-
 ---
 
 ## The Solution
 
-**Secret Manager** is a Spring Boot starter that makes secrets a first-class citizen in your application. One library. Zero boilerplate. Any vault.
+**Secret Manager** is a library that makes secrets a first-class citizen in your application:
+- One library. 
+- Zero boilerplate. 
+- Any vault.
 
 ```yaml
 spring:
@@ -222,7 +236,11 @@ public class PaymentService {
 }
 ```
 
-When the secret rotates in the vault, your app **detects it automatically** and fires a Spring event. Your connection pool refreshes. Your API client re-authenticates. **No restart. No downtime.**
+When the secret rotates in the vault:
+- Your app **detects it automatically** and fires a Spring event. 
+- Your connection pool refreshes. 
+- Your API client re-authenticates. 
+- **No restart. No downtime.**
 
 ---
 
@@ -404,7 +422,7 @@ secrets:
 
 ### 3. Use Secrets — Two Ways
 
-**In configuration files:**
+#### In configuration files
 
 ```yaml
 spring:
@@ -416,7 +434,7 @@ spring:
 
 Supports defaults: `${secret://path:fallback-value}`
 
-**In code:**
+#### In code
 
 ```java
 @Service
@@ -430,6 +448,9 @@ public class PaymentService {
 
     @Secret(path = "app/feature-flag", defaultValue = "false", required = false)
     private String featureFlag;
+
+    @Secret(path = "api/key", defaultValue = "dev-key", cacheTtl = 600)
+    private String apiKey;
 }
 ```
 
@@ -496,7 +517,10 @@ graph LR
 
 ## Plugin Architecture
 
-Secret Manager uses **Java ServiceLoader (SPI)** for zero-coupling extensibility. No `@Component`, no classpath scanning — just drop a JAR and configure.
+Secret Manager uses **Java Service Provider Interface (SPI)** for zero-coupling extensibility: 
+ - No `@Component` 
+ - No classpath scanning 
+ - Just drop a JAR and configure
 
 ### Create a Custom Vault Provider
 
@@ -534,7 +558,10 @@ secrets:
   provider: azure-keyvault
 ```
 
-**That's it.** No changes to the core library. No recompilation. Just a new JAR on the classpath.
+**That's it:** 
+ - No changes to the core library.
+ - No recompilation. 
+ - Just a new JAR on the classpath.
 
 ### Create a Custom Cache
 
@@ -542,7 +569,7 @@ Same pattern — implement `SecretCache`, register in `META-INF/services/edu.m4z
 
 ---
 
-## Security Design
+## Security by Design
 
 ```mermaid
 flowchart TD
@@ -558,11 +585,11 @@ flowchart TD
     style APP fill:#c8e6c9
 ```
 
-- **Secrets never stored in plaintext** — AES-256-GCM with unique IV per entry
-- **Rotation detection without decryption** — SHA-256 hash comparison only
-- **Master key from environment** — never hardcoded, supports env variables
-- **TTL-based expiration** — secrets auto-evict from cache
-- **No secret logging** — values are masked in all log output
+1. **Secrets never stored in plaintext** — AES-256-GCM with unique IV per entry
+2. **Rotation detection without decryption** — SHA-256 hash comparison only
+3. **Master key from environment** — never hardcoded, supports env variables
+4. **TTL-based expiration** — secrets auto-evict from cache
+5. **No secret logging** — values are masked in all log output
 
 ---
 
@@ -570,7 +597,7 @@ flowchart TD
 
 ```bash
 # Build everything
-mvn clean install -Dmaven.test.skip=true
+mvn clean install
 
 # Run demo
 cd demo
@@ -628,12 +655,25 @@ curl -X POST http://localhost:8080/api/demo/rotate-secret \
 | `secrets.conjur-vault.api-key` | API key (use env variable) |
 | `secrets.conjur-vault.ssl-verify` | Verify SSL certs (default: `true`) |
 
-### Map Vault / Mock Vault
+### Map Vault
 
 ```yaml
 secrets:
   provider: map-vault
   map-vault:
+    entry-set:
+      - key: "database/prod/password"
+        value: "my-secret"
+      - key: "api/stripe/key"
+        value: "sk_live_xxx"
+```
+
+### Mock Vault
+
+```yaml
+secrets:
+  provider: mock-vault
+  mock-vault:
     entry-set:
       - key: "database/prod/password"
         value: "my-secret"
@@ -701,7 +741,11 @@ secret-manager/
 3. Implement your changes with tests
 4. Submit a pull request
 
-For new vault providers, follow the [Plugin Architecture](#plugin-architecture) guide — implement the SPI, add ServiceLoader registration, and include configuration examples.
+For new vault providers:
+ - Follow the [Plugin Architecture](#plugin-architecture) guide 
+ - implement the SPI
+ - Aadd ServiceLoader registration
+ - Include configuration examples.
 
 ---
 
