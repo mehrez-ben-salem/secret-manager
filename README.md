@@ -1,6 +1,10 @@
-# 🔐 Secret Manager — Spring Boot Starter
+# 🔐 Secret Manager
 
-**Stop hardcoding secrets. Stop writing boilerplate. Start rotating automatically.**
+- **Stop hardcoding secrets.**
+
+- **Stop writing boilerplate.**
+
+- **Start rotating automatically.**
 
 [![Java 21](https://img.shields.io/badge/Java-21-blue?logo=openjdk)](https://openjdk.org/)
 [![Spring Boot 4](https://img.shields.io/badge/Spring%20Boot-4.0-brightgreen?logo=springboot)](https://spring.io/projects/spring-boot)
@@ -12,13 +16,25 @@
 
 Every enterprise team building on Spring Boot faces the same pain:
 
-🔴 **Secrets are scattered** — database passwords in environment variables, API keys in config files, certificates mounted as volumes. No unified access pattern.
+1. **Secrets are scattered** 
+   - Database passwords in environment variables 
+   - API keys in config files
+   - Certificates mounted as volumes 
+   - No unified access pattern
 
-🔴 **Rotation is terrifying** — when a DBA rotates a database password, who restarts the pods? How do you know the new credential propagated? Did the connection pool pick it up, or is production silently failing?
+2. **Rotation is terrifying** 
+   - When a DBA rotates a database password, who restarts the pods? 
+   - How do you know the new credential propagated? 
+   - Did the connection pool pick it up, or is production silently failing?
 
-🔴 **Caching is DIY** — you fetch a secret from Conjur or Vault, then what? Store it in a `static String`? Every team reinvents the wheel, often insecurely.
+3. **Caching is DIY** 
+   - You fetch a secret from Conjur or Vault, then what? 
+   - Store it in a `static String`? 
+   - Every team reinvents the wheel, often insecurely.
 
-🔴 **Switching vaults is a rewrite** — migrating from HashiCorp Vault to CyberArk Conjur? That's weeks of refactoring across dozens of microservices.
+4. **Switching vaults is a rewrite** 
+   - Migrating from HashiCorp Vault to CyberArk Conjur? 
+   - That's weeks of refactoring across dozens of microservices.
 
 ---
 
@@ -26,7 +42,11 @@ Every enterprise team building on Spring Boot faces the same pain:
 
 ### Accessing secrets
 
-❌ **Before** — 47 lines of boilerplate per service, vault-specific SDK, no caching, no rotation:
+#### Before 
+
+* Vault-specific SDK
+* No caching
+* No rotation
 
 ```java
 @Service
@@ -70,7 +90,11 @@ public class PaymentService {
 }
 ```
 
-✅ **After** — 8 lines. Vault-agnostic. Encrypted cache. Rotation-ready:
+#### After
+
+* Vault-agnostic. 
+* Encrypted cache. 
+* Rotation-ready:
 
 ```java
 @Service
