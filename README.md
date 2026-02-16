@@ -570,6 +570,7 @@ secret-manager/
 ├── CONTRIBUTING.md
 ├── LICENSE
 ├── README.md
+├── SECURITY.md
 ├── pom.xml
 ├── docs/
 │   ├── architecture.md
