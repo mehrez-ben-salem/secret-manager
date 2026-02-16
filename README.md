@@ -124,7 +124,7 @@ public class PaymentService {
 }
 ```
 
-**That's it.** 
+**That's it:** 
 1. No SDK boilerplate. 
 2. No manual caching. 
 3. No restart on rotation.
@@ -387,10 +387,10 @@ secrets:
   provider: azure-keyvault
 ```
 
-That's it. 
- - No changes to the core library. 
- - No recompilation. 
- - Just a new JAR on the classpath.
+**That's it:** 
+1. No changes to the core library. 
+2. No recompilation. 
+3. Just a new JAR on the classpath.
 
 > The same pattern applies to custom cache backends — implement `SecretCache`, register via SPI in META-INF/services/edu.m4z.secrets.cache.SecretCache, and set `secrets.cache.type`.
 
@@ -566,18 +566,17 @@ This project is licensed under the [MIT License](LICENSE) — use it, fork it, s
 
 ```
 secret-manager/
-├── README.md
-├── CONTRIBUTING.md
-├── SECURITY.md
 ├── CHANGELOG.md
+├── CONTRIBUTING.md
 ├── LICENSE
+├── README.md
 ├── pom.xml
 ├── docs/
 │   ├── architecture.md
 │   ├── configuration.md
-│   ├── security.md
 │   ├── custom-provider.md
-│   └── faq.md
+│   ├── faq.md
+│   └── security.md
 ├── core/                              # secret-manager-core
 │   └── src/main/java/edu/m4z/secrets/
 │       ├── annotation/                # @Secret
