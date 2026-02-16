@@ -300,41 +300,7 @@ public class RotationHandler {
 
 ## Architecture
 
-```mermaid
-graph TB
-    subgraph Your Application
-        YAML[application.yml]
-        BEAN["@Secret annotation"]
-
-end
-
-    subgraph Secret Manager Core
-        PP[PropertySource]
-        AP[AnnotationProcessor]
-        SM[SecretService]
-        CACHE[SecretCache - SPI]
-        ENC[EncryptionService - AES-256-GCM]
-        RD[RotationDetector]
-        EVT[SecretRotationEvent]
-    end
-
-    subgraph Vault Providers - SPI
-        CONJUR[CyberArk Conjur]
-        MAP[Map Vault]
-        MOCK[Mock Vault]
-        CUSTOM[Your Custom Provider]
-    end
-
-    YAML --> PP --> SM
-    BEAN --> AP --> SM
-    SM --> CACHE --> ENC
-    SM --> CONJUR
-    SM --> MAP
-    SM --> MOCK
-    SM --> CUSTOM
-    RD --> SM
-    RD --> EVT
-```
+![Architecture](./docs/architecture.svg)
 
 ### Module Overview
 
