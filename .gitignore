@@ -63,4 +63,4 @@ application-local.yml
 application-secrets.yml
 *.key
 *.pem
-**/secrets/
+#**/secrets/
