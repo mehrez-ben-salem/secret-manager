@@ -20,7 +20,7 @@ In the modern enterprise, **secrets are everywhere** :
  - Database passwords
  - API keys 
  - Encryption certificates
- - third-party tokens
+ - Third-party tokens
 They power every transaction, every login, every integration.
 
 Yet most teams still manage them the hard way: 
@@ -36,8 +36,8 @@ Drop it into your project, point it at your vault, and secrets simply *appear*:
  - In your YAML configuration, 
  - In your Java fields, 
  - Everywhere you need them.
- - 
-When a secret rotates in the vault, your application adapts automatically. No restart. No downtime. No boilerplate.
+
+When a secret rotates in the vault, your application adapts automatically. **No restart. No downtime. No boilerplate.**
 
 ---
 
