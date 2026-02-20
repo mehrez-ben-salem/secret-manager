@@ -20,7 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## [1.0.0] - 2025-XX-XX
+## [1.0.0] - 2025-10-29
 
 ### Added
 - **Core library** (`secret-manager-core`) with SPI interfaces, auto-configuration, and Spring Boot integration
