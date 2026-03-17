@@ -1,5 +1,7 @@
 package edu.m4z.secrets.processor;
 
+import java.lang.reflect.Field;
+
 import edu.m4z.secrets.annotation.Secret;
 import edu.m4z.secrets.cache.EncryptedSecret;
 import edu.m4z.secrets.cache.SecretCache;
@@ -15,7 +17,6 @@ import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ReflectionUtils;
 
-import java.lang.reflect.Field;
 
 /**
  * Processes @Secret annotations on bean fields during Spring initialization.

@@ -63,5 +63,5 @@ Template for future releases:
 - Vulnerability fixes
 -->
 
-[Unreleased]: https://github.com/your-org/secret-manager/compare/v1.0.0...HEAD
-[1.0.0]: https://github.com/your-org/secret-manager/releases/tag/v1.0.0
+[Unreleased]: https://github.com/mehrez-ben-salem/secret-manager/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/mehrez-ben-salem/secret-manager/releases/tag/v1.0.0
