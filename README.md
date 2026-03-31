@@ -525,8 +525,27 @@ Built with the conviction that infrastructure concerns like secret management sh
 ## License
 
 <!--- This project is licensed under the [MIT License](LICENSE) — use it, fork it, ship it. --->
-Unauthorized use is strictly prohibited
+All Rights Reserved
 
+Copyright (c) 2026 Mehrez Ben Salem
+
+All rights reserved.
+
+This source code and all associated files are the exclusive property of the author.
+
+No part of this codebase may be:
+- used,
+- copied,
+- modified,
+- merged,
+- published,
+- distributed,
+- sublicensed,
+- or sold
+
+without explicit prior written permission from the author.
+
+Unauthorized use is strictly prohibited.
 
 ---
 
