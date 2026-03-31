@@ -524,8 +524,8 @@ Built with the conviction that infrastructure concerns like secret management sh
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE) — use it, fork it, ship it.
-
+<!--- This project is licensed under the [MIT License](LICENSE) — use it, fork it, ship it. --->
+Unauthorized use is strictly prohibited
 ---
 
 ## Project Structure
